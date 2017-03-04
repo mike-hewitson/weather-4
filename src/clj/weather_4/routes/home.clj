@@ -7,9 +7,9 @@
             [clojure.math.numeric-tower :as m]
             [weather-4.db.core :as db]))
 
-; (defn home-page []
-;   (layout/render
-;     "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
+(def locations
+  ["Sandton" "Paradise Beach"])
+
 
 (def wind-directions
   ["N" "NE" "E" "SE" "S" "SW" "W" "NW"])
@@ -32,7 +32,8 @@
    (log/debug "date" (:date readings))
    (layout/render
     "home.html"
-    {:readings (add-direction-into-readings (:readings readings))
+    {:readings (filter (fn [x] (some #(= (:location x) %) locations))
+                       (add-direction-into-readings (:readings readings)))
      :date (:date readings)})))
 
 (defroutes home-routes
