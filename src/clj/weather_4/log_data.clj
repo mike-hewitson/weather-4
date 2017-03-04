@@ -100,7 +100,7 @@
   (assoc (apply merge (map (fn [[[name & [cast]] value]] {name (if cast (cast value) value)})
                           reading-map)) "location" location))
 
-(def db-conn
+(defonce db-conn
   "load connection from config"
   (let [uri (:database-url
               (load-config :merge
