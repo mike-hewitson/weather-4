@@ -46,12 +46,12 @@ Don't forget to execute the functions in the repl
 To run the logger to log one set of readings per location at the current time in the development environment.
 
 ```
-$ lein with-profile dev trampoline run -m weather-3.log-data
+$ lein with-profile dev trampoline run -m weather-4.log-data
 ```
 
 For the scheduled job in Heroku, try the following
 ```
-$ lein with-profile production trampoline run -m weather-3.log-data
+$ lein with-profile production trampoline run -m weather-4.log-data
 ```
 
 # to create a new version of this from a template

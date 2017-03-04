@@ -6,31 +6,31 @@
       {% for item in readings %}
       <div class="row">
         <table class="table">
-          <h3>{{item.location/name}} <i class="wi {{item.readings/icon}}"></i></h3>
+          <h3>{{item.location}} <i class="wi {{item.icon}}"></i></h3>
           <tbody>
             <tr>
               <td>Week forecast:</td>
-              <td>{{item.readings/week-summary}}</td>
+              <td>{{item.week-summary}}</td>
             </tr>
             <tr>
               <td>Day forecast:</td>
-              <td>{{item.readings/day-summary}}</td>
+              <td>{{item.day-summary}}</td>
             </tr>
             <tr>
               <td>Sunrise/Sunset:</td>
-              <td>{{item.readings/sunrise|date:"HH:mm:ss"}} / {{item.readings/sunset|date:"HH:mm:ss"}}</td>
+              <td>{{item.sunrise|date:"HH:mm:ss"}} / {{item.sunset|date:"HH:mm:ss"}}</td>
             </tr>
             <tr>
               <td>Max Temperature:</td>
-              <td>{{item.readings/temperature-max}} °C</td>
+              <td>{{item.temperature-max|double-format:1}} °C</td>
             </tr>
             <tr>
               <td>Temperature:</td>
-              <td>{{item.readings/temperature}} °C</td>
+              <td>{{item.temperature|double-format:2}} °C</td>
             </tr>
             <tr>
               <td>Wind speed:</td>
-              <td> {{item.readings/wind-speed}} km/hr {{item.wind-direction}}</td>
+              <td> {{item.wind-speed|double-format:2}} km/hr {{item.wind-direction}}</td>
             </tr>
           </tbody>
         </table>
@@ -39,7 +39,7 @@
     </ul>
   </div>
   <div class="col-sm-3 col-sm-push-9">
-    <time>@ {{created-at|date:"yyyy-MM-dd HH:mm:ss"}}</time>
+    <time>@ {{date|date:"yyyy-MM-dd HH:mm:ss"}}</time>
   </div>
 </div>
 {% endblock %}

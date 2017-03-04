@@ -26,9 +26,6 @@
 ; (defn get-user [id]
 ;   (mc/find-one-as-map db "users" {:_id id}))
 
-(defn log-reading [reading]
-  (mc/insert db "readings" reading))
-
 (defn get-latest []
  (with-collection db "readings"
   (find {})
