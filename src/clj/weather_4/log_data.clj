@@ -125,7 +125,7 @@
                 [(source/from-system-props)
                  (source/from-env)]))
         db (:db (mg/connect-via-uri uri))]
-   (mc/insert (:db db-conn) "readings" {:date now :readings (build-readings)})))
+    (mc/insert db "readings" {:date now :readings (build-readings)})))
 
 (defn -main [& args]
   (log-readings)
