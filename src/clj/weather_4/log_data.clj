@@ -101,7 +101,7 @@
                           reading-map)) "location" location))
 
 (defonce db-conn
-  "load connection from config"
+  ; "load connection from config"
   (let [uri (:database-url
               (load-config :merge
                 [(source/from-system-props)
