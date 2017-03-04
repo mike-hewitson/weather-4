@@ -1,25 +1,36 @@
 (ns weather-4.db.core
-    (:require [monger.core :as mg]
-              [monger.collection :as mc]
-              [monger.operators :refer :all]
-              [mount.core :refer [defstate]]
-              [weather-4.config :refer [env]]))
+  (:require [monger.core :as mg]
+            [monger.collection :as mc]
+            [monger.operators :refer :all]
+            [monger.query :refer :all]
+            [mount.core :refer [defstate]]
+            [weather-4.config :refer [env]]))
 
 (defstate db*
-  :start (-> env :database-url mg/connect-via-uri)
-  :stop (-> db* :conn mg/disconnect))
+          :start (-> env :database-url mg/connect-via-uri)
+          :stop (-> db* :conn mg/disconnect))
 
 (defstate db
-  :start (:db db*))
+          :start (:db db*))
 
-(defn create-user [user]
-  (mc/insert db "users" user))
+; TODO remove old code
+; (defn create-user [user]
+;   (mc/insert db "users" user))
+;
+; (defn update-user [id first-name last-name email]
+;   (mc/update db "users" {:_id id}
+;              {$set {:first_name first-name
+;                     :last_name last-name
+;                     :email email}}))
+;
+; (defn get-user [id]
+;   (mc/find-one-as-map db "users" {:_id id}))
 
-(defn update-user [id first-name last-name email]
-  (mc/update db "users" {:_id id}
-             {$set {:first_name first-name
-                    :last_name last-name
-                    :email email}}))
+(defn log-reading [reading]
+  (mc/insert db "readings" reading))
 
-(defn get-user [id]
-  (mc/find-one-as-map db "users" {:_id id}))
+(defn get-latest []
+ (with-collection db "readings"
+  (find {})
+  (sort (sorted-map $natural -1))
+  (limit 1)))

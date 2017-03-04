@@ -26,7 +26,9 @@
                  [ring/ring-defaults "0.2.3"]
                  [selmer "1.10.6"]
                  [clj-http "2.3.0"]
-                 [clj-time "0.13.0"]]
+                 [clj-time "0.13.0"]
+                 [org.clojure/math.numeric-tower "0.0.4"]
+                 [cheshire "5.7.0"]]
 
 
   :min-lein-version "2.0.0"

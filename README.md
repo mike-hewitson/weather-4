@@ -17,7 +17,7 @@ Testing
 Create heruko environments
 
 ```
-$ heroku new
+$ heroku create
 ```
 
 Add database URI to environments
@@ -61,6 +61,7 @@ $ lein with-profile production trampoline run -m weather-3.log-data
 Add midje and proto-repl to dev dependencies
 Add midje to plugins (for testing)
 Add clj-http to dependencies (for darksky access)
+Add cheshire to dependencies (for json conversion)
 
 Copy weather icons directory into public
 Add into base.html
