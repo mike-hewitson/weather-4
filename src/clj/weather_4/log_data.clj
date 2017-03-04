@@ -100,8 +100,8 @@
   (assoc (apply merge (map (fn [[[name & [cast]] value]] {name (if cast (cast value) value)})
                           reading-map)) "location" location))
 
-(defonce db-conn
-  ; "load connection from config"
+(def db-conn
+  "load connection from config"
   (let [uri (:database-url
               (load-config :merge
                 [(source/from-system-props)
@@ -120,7 +120,12 @@
   (new java.util.Date))
 
 (defn log-readings []
-  (mc/insert (:db db-conn) "readings" {:date now :readings (build-readings)}))
+  (let [uri (:database-url
+              (load-config :merge
+                [(source/from-system-props)
+                 (source/from-env)]))
+        db (:db (mg/connect-via-uri uri))]
+   (mc/insert (:db db-conn) "readings" {:date now :readings (build-readings)})))
 
 (defn -main [& args]
   (log-readings)
