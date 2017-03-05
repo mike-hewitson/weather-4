@@ -1,13 +1,19 @@
 (ns weather-4.test.handler
   (:require [clojure.test :refer :all]
             [ring.mock.request :refer :all]
-            [weather-4.handler :refer :all]))
+            [weather-4.handler :refer :all]
+            [midje.sweet :refer :all]))
 
-(deftest test-app
-  (testing "main route"
+(facts "about routes"
+  (fact "main route should return 200"
     (let [response ((app) (request :get "/"))]
-      (is (= 200 (:status response)))))
-
-  (testing "not-found route"
+      (:status response) => 200))
+  (fact "history route should return 200"
+    (let [response ((app) (request :get "/history"))]
+      (:status response) => 200))
+  (fact "summary route should return 200"
+    (let [response ((app) (request :get "/summary"))]
+      (:status response) => 200))
+  (fact "not-found route should return 404"
     (let [response ((app) (request :get "/invalid"))]
-      (is (= 404 (:status response))))))
+      (:status response) => 404)))
