@@ -9,17 +9,19 @@
 
 (defn create-history-seq
   "create a sequence of 50 dates between a date and today"
-  [days-back]
+  [days-back end-point]
   (let [interval (int (/ (* days-back 24  3600) 49))
-        from-date (t/minus (t/now) (t/days days-back))]
+        from-date (t/minus end-point (t/days days-back))]
    (map c/to-date (take 50 (p/periodic-seq from-date (t/seconds interval))))))
 
 (defn create-readings-list
+  "create a list of readings, on for each date "
   [dates]
   (map #(first (db/get-reading-at-time %))
        dates))
 
 (defn create-display-list
+  "format the a reeading list for the html template "
   [readings-list]
   (map (fn [x]
          (let [reading (first (:readings x))]
@@ -31,7 +33,7 @@
    (layout/render
     "history.html"
     {:readings (->
-                (create-history-seq 1)
+                (create-history-seq 1 (t/now))
                 create-readings-list
                 create-display-list
                 dedupe)}))

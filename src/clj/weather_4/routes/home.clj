@@ -25,18 +25,17 @@
          (assoc reading :wind-direction (get-direction (:wind-bearing reading))))
        readings))
 
+(defn create-map-for-template
+  "create the data for the web page template"
+  [latest-reading]
+  {:readings (filter (fn [x] (some #(= (:location x) %) locations))
+                     (add-direction-into-readings (:readings latest-reading)))
+   :date (:date latest-reading)})
+
 (defn home-page []
-  (let [readings (first (db/get-latest))]
-   (log/debug "readings" readings)
-   (log/debug "date" (:date readings))
    (layout/render
     "home.html"
-    {:readings (filter (fn [x] (some #(= (:location x) %) locations))
-                       (add-direction-into-readings (:readings readings)))
-     :date (:date readings)})))
+    (create-map-for-template (first (db/get-latest)))))
 
 (defroutes home-routes
   (GET "/" [] (home-page)))
-  ; (GET "/summary" [] (summary-page)))
-
-;TODO create seperate route for summary
