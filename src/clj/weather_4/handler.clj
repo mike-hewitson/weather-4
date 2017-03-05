@@ -3,6 +3,7 @@
             [weather-4.layout :refer [error-page]]
             [weather-4.routes.home :refer [home-routes]]
             [weather-4.routes.history :refer [history-routes]]
+            [weather-4.routes.summary :refer [summary-routes]]
             [compojure.route :as route]
             [weather-4.env :refer [defaults]]
             [mount.core :as mount]
@@ -18,6 +19,9 @@
         (wrap-routes middleware/wrap-csrf)
         (wrap-routes middleware/wrap-formats))
     (-> #'history-routes
+        (wrap-routes middleware/wrap-csrf)
+        (wrap-routes middleware/wrap-formats))
+    (-> #'summary-routes
         (wrap-routes middleware/wrap-csrf)
         (wrap-routes middleware/wrap-formats))
     (route/not-found
