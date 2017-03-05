@@ -44,4 +44,26 @@
     (sort (array-map :date -1))
     (limit 1)))
 
-; TODO deal with sort/find warning
+
+; TODO put filter in place for the date range
+
+(defn get-summary
+  "retrieve summary data for all days that we have data for"
+  [location]
+  (mc/aggregate
+   db
+   "readings"
+   [{$unwind "$readings"}
+    {$match {"readings.location" { "$eq" location}}}
+    {$project {"readings" 1
+               :yearMonthDay {"$dateToString" {:format "%Y-%m-%d"
+                                               :date "$date"}}}}
+    {$group { "_id" {"date" "$yearMonthDay"}
+              :count {"$sum" 1}
+              :avg-temp {"$avg" "$readings.temperature"}
+              :max-temp {"$max" "$readings.temperature"}
+              :min-temp {"$min" "$readings.temperature"}
+              :avg-wind {"$avg" "$readings.wind-speed"}
+              :max-wind {"$max" "$readings.wind-speed"}
+              :min-wind {"$min" "$readings.wind-speed"}}}
+    {$sort {"_id.date" 1}}]))

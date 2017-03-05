@@ -1,21 +1,31 @@
 {% extends "base.html" %} {% block content %}
 <div class="row row-content">
   <div class="col-xs-12">
-    <h2>Empty Summary Page</h2>
+    <h2>Paradise Beach Summary</h2>
     <ul class="tab-pane fade in active">
       <div class="row">
         <table class="table">
           <thead>
-            <td>Location:</td>
-            <td>Readings Time:</td>
+            <td>Date</td>
+            <td>max Temp</td>
+            <td>avg Temp</td>
+            <td>min Temp</td>
+            <td>min Wind</td>
+            <td>min Wind</td>
+            <td>min Wind</td>
           </thead>
           <tbody>
-            {% for item in readings %}
+            {% for item in summary %}
             <tr>
-              <td>{{item.location}}</td>
               <td>
-                <time>{{item.date|date:"yyyy-MM-dd HH:mm:ss"}}</time>
+                <time>{{item._id.date|date:"yyyy-MM-dd"}}</time>
               </td>
+              <td>{{item.max-temp|double-format:1}}</td>
+              <td>{{item.avg-temp|double-format:1}}</td>
+              <td>{{item.min-temp|double-format:1}}</td>
+              <td>{{item.max-wind|double-format:1}}</td>
+              <td>{{item.avg-wind|double-format:1}}</td>
+              <td>{{item.min-wind|double-format:1}}</td>
             </tr>
             {% endfor %}
           </tbody>
