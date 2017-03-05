@@ -21,6 +21,7 @@ $ heroku create
 ```
 
 Add database URI to environments
+Add TZ="Africa/Johannesburg" to environment
 
 To push to heroku
 

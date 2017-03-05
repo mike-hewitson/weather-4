@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <div class="row row-content">
   <div class="col-xs-12">
-    <h2>Right now</h2>
+    <!-- <h2>Right now</h2> -->
     <ul class="tab-pane fade in active">
       {% for item in readings %}
       <div class="row">
@@ -9,28 +9,35 @@
           <h3>{{item.location}} <i class="wi {{item.icon}}"></i></h3>
           <tbody>
             <tr>
-              <td>Week forecast:</td>
+              <td>forecast</td>
+              <td>week</td>
+              </td>
               <td>{{item.week-summary}}</td>
             </tr>
             <tr>
-              <td>Day forecast:</td>
+              <td></td>
+              <td>day</td>
               <td>{{item.day-summary}}</td>
             </tr>
             <tr>
-              <td>Sunrise/Sunset:</td>
+              <td>sunrise/sunset</td>
+              <td></td>
               <td>{{item.sunrise|date:"HH:mm:ss"}} / {{item.sunset|date:"HH:mm:ss"}}</td>
             </tr>
             <tr>
-              <td>Max Temperature:</td>
+              <td>temp</td>
+              <td>max</td>
               <td>{{item.temperature-max|double-format:1}} °C</td>
             </tr>
             <tr>
-              <td>Temperature:</td>
+              <td></td>
+              <td>now</td>
               <td>{{item.temperature|double-format:2}} °C</td>
             </tr>
             <tr>
-              <td>Wind speed:</td>
-              <td> {{item.wind-speed|double-format:2}} km/hr {{item.wind-direction}}</td>
+              <td>wind</td>
+              <td></td>
+              <td> {{item.wind-speed|double-format:2}} km/hr - {{item.wind-direction}}</td>
             </tr>
           </tbody>
         </table>
@@ -38,10 +45,8 @@
       {% endfor %}
     </ul>
   </div>
-  <div class="col-sm-3 col-sm-push-9">
+  <div class="col-xs-12">
     <time>@ {{date|date:"yyyy-MM-dd HH:mm:ss"}}</time>
   </div>
 </div>
 {% endblock %}
-
-<!-- TODO add seperator for forecast vs current" -->
