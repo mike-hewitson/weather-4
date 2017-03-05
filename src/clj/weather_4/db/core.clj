@@ -4,7 +4,8 @@
             [monger.operators :refer :all]
             [monger.query :refer :all]
             [mount.core :refer [defstate]]
-            [weather-4.config :refer [env]]))
+            [weather-4.config :refer [env]]
+            [clojure.tools.logging :as log]))
 
 (defstate db*
           :start (-> env :database-url mg/connect-via-uri)
@@ -26,8 +27,21 @@
 ; (defn get-user [id]
 ;   (mc/find-one-as-map db "users" {:_id id}))
 
-(defn get-latest []
+(defn get-latest
+  "return the most recent reading"
+  []
  (with-collection db "readings"
   (find {})
   (sort (sorted-map $natural -1))
   (limit 1)))
+
+(defn get-reading-at-time
+  "return the reading just before to the supplied date/time"
+  [date-time]
+  (log/debug "date-time:" date-time)
+  (with-collection db "readings"
+    (find {:date { $lte date-time}})
+    (sort (array-map :date -1))
+    (limit 1)))
+
+; TODO deal with sort/find warning

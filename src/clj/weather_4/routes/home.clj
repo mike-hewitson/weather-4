@@ -3,7 +3,6 @@
             [clojure.tools.logging :as log]
             [compojure.core :refer [defroutes GET]]
             [ring.util.http-response :as response]
-            ; [clojure.java.io :as io]
             [clojure.math.numeric-tower :as m]
             [weather-4.db.core :as db]))
 
