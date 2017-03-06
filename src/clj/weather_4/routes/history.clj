@@ -8,8 +8,10 @@
             [clj-time.periodic :as p]))
 
 
-;TODO adjust readings resolution when graphs are visual
-; TOD make resolution a parameter
+; TODO adjust readings resolution when graphs are visual
+; TODO make resolution a parameter
+; TODO currently set for one day back. change to 14 as a deault
+; TODO days back to be a parameter on the from-end
 
 (defn create-history-seq
   "create a sequence of 50 dates between a date and today"
