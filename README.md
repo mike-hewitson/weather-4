@@ -8,9 +8,22 @@ To start a web server for the application, run:
 
     lein run
 
-Testing
+### testing
 
-   lein midje
+```
+$ lein midje
+```
+## testing in repl
+
+```
+(use 'midje.repl)
+(autotest :resume)
+```   
+
+To manually reload src and test, and re-run them
+```
+(load-facts)
+```
 
 ## heroku
 

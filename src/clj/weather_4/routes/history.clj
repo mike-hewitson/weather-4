@@ -7,6 +7,10 @@
             [clj-time.coerce :as c]
             [clj-time.periodic :as p]))
 
+
+;TODO adjust readings resolution when graphs are visual
+; TOD make resolution a parameter
+
 (defn create-history-seq
   "create a sequence of 50 dates between a date and today"
   [days-back end-point]
@@ -40,6 +44,3 @@
 
 (defroutes history-routes
   (GET "/history" [] (history-page)))
-
-;TODO adjust readings resolution when graphs are visual
-;TODO add a few other data items here
